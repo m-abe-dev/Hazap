@@ -6,14 +6,14 @@ export default function NavBar() {
     <Menu inverted fixed="top">
       <Container>
         <Menu.Item header>
-          <img src="/assets/logo.png" alt="logo" />
+          <img src="/assets/logo.png" alt="logo" style={{ marginRight: 15 }} />
           Re-vents
         </Menu.Item>
         <Menu.Item name="Events" />
         <Menu.Item>
           <Button positive inverted content="Create Event" />
         </Menu.Item>
-        <Menu.Item>
+        <Menu.Item position="right">
           <Button basic inverted content="Login" />
           <Button
             basic
