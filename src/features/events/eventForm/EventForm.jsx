@@ -1,3 +1,4 @@
+/* global google */
 import React from "react";
 import { Button, Header, Segment } from "semantic-ui-react";
 import cuid from "cuid";
@@ -6,11 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { createEvent, updateEvent } from "../eventActions";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import MyTextInput from "../../../app/api/common/form/MyTextInput";
-import MyTextArea from "../../../app/api/common/form/MyTextArea";
-import MySelectInput from "../../../app/api/common/form/MySelectInput";
-import MyDateInput from "../../../app/api/common/form/MyDateInput";
 import { categoryData } from "../../../app/api/categoryOptions";
+import MyDateInput from "../../../app/common/form/MyDateInput";
+import MyPlaceInput from "../../../app/common/form/MyPlaceInput";
+import MySelectInput from "../../../app/common/form/MySelectInput";
+import MyTextArea from "../../../app/common/form/MyTextArea";
+import MyTextInput from "../../../app/common/form/MyTextInput";
 
 function EventForm({ match, history }) {
   const dispatch = useDispatch();
@@ -22,18 +24,28 @@ function EventForm({ match, history }) {
     title: "",
     category: "",
     description: "",
-    city: "",
-    venue: "",
+    city: {
+      address: "",
+      latLng: null,
+    },
+    venue: {
+      address: "",
+      latLng: null,
+    },
     date: "",
   };
 
-  // エラーメッセージ（無記入)
+  // エラーメッセージ（無記入の場合)
   const validationSchema = Yup.object({
     title: Yup.string().required("タイトルを記入して下さい"),
     category: Yup.string().required("カテゴリーを記入して下さい"),
     description: Yup.string().required("内容を記入して下さい"),
-    city: Yup.string().required("場所を記入して下さい"),
-    venue: Yup.string().required("通りを記入して下さい"),
+    city: Yup.object().shape({
+      address: Yup.string().required("場所を記入して下さい"),
+    }),
+    venue: Yup.object().shape({
+      address: Yup.string().required("通りを記入して下さい"),
+    }),
     date: Yup.string().required("日付を記入して下さい"),
   });
 
@@ -57,7 +69,7 @@ function EventForm({ match, history }) {
           history.push("/events");
         }}
       >
-        {({ isSubmitting, dirty, isValid }) => (
+        {({ isSubmitting, dirty, isValid, values }) => (
           <Form className="ui form">
             <Header sub color="teal" content="Event Details" />
 
@@ -71,8 +83,17 @@ function EventForm({ match, history }) {
 
             <Header sub color="teal" content="Event Location Details" />
 
-            <MyTextInput name="city" placeholder="City" />
-            <MyTextInput name="venue" placeholder="Venue" />
+            <MyPlaceInput name="city" placeholder="City" />
+            <MyPlaceInput
+              name="venue"
+              disabled={!values.city.latLng}
+              placeholder="Venue"
+              options={{
+                location: new google.maps.LatLng(values.city.latLng),
+                radius: 1000,
+                types: ["establishment"],
+              }}
+            />
             <MyDateInput
               name="date"
               placeholderText="Event date"
