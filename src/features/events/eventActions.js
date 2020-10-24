@@ -2,7 +2,7 @@ import {
   CREATE_EVENT,
   UPDATE_EVENT,
   DELETE_EVENT,
-  // FETCH_EVENTS,
+  FETCH_EVENTS,
   // LISTEN_TO_EVENT_CHAT,
   // LISTEN_TO_SELECTED_EVENT,
   // CLEAR_EVENTS,
@@ -10,15 +10,18 @@ import {
   // SET_START_DATE,
   // CLEAR_SELECTED_EVENT,
 } from "./eventConstants";
-// import {
-//   asyncActionStart,
-//   asyncActionFinish,
-//   asyncActionError,
-// } from "../../app/async/asyncReducer";
+import {
+  asyncActionError,
+  asyncActionFinish,
+  asyncActionStart,
+  // asyncActionFinish,
+  // asyncActionError,
+} from "../../app/async/asyncReducer";
 // import {
 //   fetchEventsFromFirestore,
-//   dataFromSnapshot,
+//   // dataFromSnapshot,
 // } from "../../app/firestore/firestoreService";
+import { fetchSampleData } from "../../app/api/mockApi";
 
 // export function fetchEvents(filter, startDate, limit, lastDocSnapshot) {
 //   return async function (dispatch) {
@@ -70,6 +73,19 @@ import {
 //     type: CLEAR_SELECTED_EVENT,
 //   };
 // }
+
+export function loadEvents() {
+  return async function (dispatch) {
+    dispatch(asyncActionStart());
+    try {
+      const events = await fetchSampleData();
+      dispatch({ type: FETCH_EVENTS, payload: events });
+      dispatch(asyncActionFinish());
+    } catch (error) {
+      dispatch(asyncActionError(error));
+    }
+  };
+}
 
 export function createEvent(event) {
   return {

@@ -2,7 +2,7 @@ import {
   CREATE_EVENT,
   UPDATE_EVENT,
   DELETE_EVENT,
-  // FETCH_EVENTS,
+  FETCH_EVENTS,
   // LISTEN_TO_EVENT_CHAT,
   // CLEAR_COMMENTS,
   // LISTEN_TO_SELECTED_EVENT,
@@ -12,10 +12,9 @@ import {
   // RETAIN_STATE,
   // CLEAR_SELECTED_EVENT,
 } from "./eventConstants";
-import { sampleData } from "../../app/api/sampleData";
 
 const initialState = {
-  events: sampleData,
+  events: [],
   // comments: [],
   // moreEvents: true,
   // selectedEvent: null,
@@ -45,13 +44,11 @@ export default function eventReducer(state = initialState, { type, payload }) {
         ...state,
         events: [...state.events.filter((evt) => evt.id !== payload)],
       };
-    // case FETCH_EVENTS:
-    //   return {
-    //     ...state,
-    //     events: [...state.events, ...payload.events],
-    //     moreEvents: payload.moreEvents,
-    //     lastVisible: payload.lastVisible,
-    //   };
+    case FETCH_EVENTS:
+      return {
+        ...state,
+        events: payload,
+      };
     // case LISTEN_TO_EVENT_CHAT:
     //   return {
     //     ...state,
