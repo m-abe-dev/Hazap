@@ -108,6 +108,13 @@ export function deleteEvent(eventId) {
   };
 }
 
+export function listenToEvents(events) {
+  return {
+    type: FETCH_EVENTS,
+    payload: events,
+  };
+}
+
 // export function listenToEventChat(comments) {
 //   return {
 //     type: LISTEN_TO_EVENT_CHAT,
