@@ -61,3 +61,17 @@ export function setUserProfileData(user) {
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
 }
+
+export async function updateUserProfile(profile) {
+  const user = firebase.auth().currentUser;
+  try {
+    if (user.displayName !== profile.displayName) {
+      await user.updateProfile({
+        displayName: profile.displayName,
+      });
+    }
+    return await db.collection("users").doc(user.uid).update(profile);
+  } catch (error) {
+    throw error;
+  }
+}
