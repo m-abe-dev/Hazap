@@ -62,6 +62,10 @@ export function setUserProfileData(user) {
     });
 }
 
+export function getUserProfile(userId) {
+  return db.collection("users").doc(userId);
+}
+
 export async function updateUserProfile(profile) {
   const user = firebase.auth().currentUser;
   try {
@@ -74,8 +78,4 @@ export async function updateUserProfile(profile) {
   } catch (error) {
     throw error;
   }
-}
-
-export function getUserProfile(userId) {
-  return db.collection("users").doc(userId);
 }

@@ -10,7 +10,7 @@ import {
   Statistic,
 } from "semantic-ui-react";
 
-function ProfileHeader({ profile }) {
+function ProfileHeader({ profile, isCurrentUser }) {
   return (
     <Segment>
       <Grid>
@@ -35,17 +35,21 @@ function ProfileHeader({ profile }) {
         <Grid.Column width={4}>
           <Statistic.Group>
             <Statistic label="Followers" value={10} />
-            <Statistic label="Followers" value={5} />
+            <Statistic label="Following" value={5} />
           </Statistic.Group>
-          <Divider />
-          <Reveal animated="move">
-            <Reveal.Content visible style={{ width: "100%" }}>
-              <Button fluid color="teal" content="Following" />
-            </Reveal.Content>
-            <Reveal.Content hidden style={{ width: "100%" }}>
-              <Button basic fluid color="red" content="Unfollow" />
-            </Reveal.Content>
-          </Reveal>
+          {!isCurrentUser && (
+            <>
+              <Divider />
+              <Reveal animated="move">
+                <Reveal.Content visible style={{ width: "100%" }}>
+                  <Button fluid color="teal" content="Following" />
+                </Reveal.Content>
+                <Reveal.Content hidden style={{ width: "100%" }}>
+                  <Button basic fluid color="red" content="Unfollow" />
+                </Reveal.Content>
+              </Reveal>
+            </>
+          )}
         </Grid.Column>
       </Grid>
     </Segment>

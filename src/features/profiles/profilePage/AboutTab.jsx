@@ -14,13 +14,14 @@ export default function AboutTab({ profile, isCurrentUser }) {
             icon="user"
             content={`About ${profile.displayName}`}
           />
-
-          <Button
-            onClick={() => setEditMode(!editMode)}
-            floated="right"
-            basic
-            content={editMode ? "Cancel" : "Edit"}
-          />
+          {isCurrentUser && (
+            <Button
+              onClick={() => setEditMode(!editMode)}
+              floated="right"
+              basic
+              content={editMode ? "Cancel" : "Edit"}
+            />
+          )}
         </Grid.Column>
         <Grid.Column width={16}>
           {editMode ? (
