@@ -75,3 +75,7 @@ export async function updateUserProfile(profile) {
     throw error;
   }
 }
+
+export function getUserProfile(userId) {
+  return db.collection("users").doc(userId);
+}
