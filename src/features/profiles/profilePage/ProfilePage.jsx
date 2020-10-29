@@ -5,7 +5,7 @@ import ProfileContent from "./ProfileContent";
 import ProfileHeader from "./ProfileHeader";
 import useFirestoreDoc from "../../../app/hooks/useFirestoreDoc";
 import { getUserProfile } from "../../../app/firestore/firestoreService";
-import { listenToSelectedUserProfile } from "../profileAction";
+import { listenToSelectedUserProfile } from "../profileActions";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 function ProfilePage({ match }) {
@@ -28,11 +28,11 @@ function ProfilePage({ match }) {
       <Grid.Column width={16}>
         <ProfileHeader
           profile={selectedUserProfile}
-          isCurrentUser={currentUser.uid === selectedUserProfile}
+          isCurrentUser={currentUser.uid === selectedUserProfile.id}
         />
         <ProfileContent
           profile={selectedUserProfile}
-          isCurrentUser={currentUser.uid === selectedUserProfile}
+          isCurrentUser={currentUser.uid === selectedUserProfile.id}
         />
       </Grid.Column>
     </Grid>

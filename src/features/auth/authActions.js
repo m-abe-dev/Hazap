@@ -5,7 +5,7 @@ import {
   dataFromSnapshot,
   getUserProfile,
 } from "../../app/firestore/firestoreService";
-import { listenToCurrentUserProfile } from "../profiles/profileAction";
+import { listenToCurrentUserProfile } from "../profiles/profileActions";
 
 export function signInUser(user) {
   return {
