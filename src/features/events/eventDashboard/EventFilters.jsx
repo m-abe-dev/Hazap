@@ -21,8 +21,8 @@ function EventFilters({ setPredicate, predicate, loading }) {
         />
         <Menu.Item
           content="ホストです"
-          active={predicate.get("filter") === "isHosting"}
-          onClick={() => setPredicate("filter", "isHosting")}
+          active={predicate.get("filter") === "isHost"}
+          onClick={() => setPredicate("filter", "isHost")}
           disabled={loading}
         />
       </Menu>
