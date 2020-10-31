@@ -7,11 +7,22 @@ import EventFilters from "./EventFilters";
 import { listenToEventsFromFirestore } from "../../../app/firestore/firestoreService";
 import { listenToEvents } from "../eventActions";
 import useFirestoreCollection from "../../../app/hooks/useFirestoreCollection";
+import { useState } from "react";
 
 const EventDashboard = () => {
   const dispatch = useDispatch();
   const { events } = useSelector((state) => state.event);
   const { loading } = useSelector((state) => state.async);
+  const [predicate, setPredicate] = useState(
+    new Map([
+      ["startDate", new Date()],
+      ["filter", "all"],
+    ])
+  );
+
+  function handleSetPredicate(key, value) {
+    setPredicate(new Map(predicate.set(key, value)));
+  }
 
   useFirestoreCollection({
     query: () => listenToEventsFromFirestore(),
@@ -31,7 +42,11 @@ const EventDashboard = () => {
         <EventList events={events} />
       </Grid.Column>
       <Grid.Column width={6}>
-        <EventFilters />
+        <EventFilters
+          predicate={predicate}
+          setPredicate={handleSetPredicate}
+          loading={loading}
+        />
       </Grid.Column>
     </Grid>
   );
