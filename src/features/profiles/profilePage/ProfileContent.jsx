@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Tab } from "semantic-ui-react";
 import AboutTab from "./AboutTab";
+import PhotosTab from "./PhotosTab";
 import EventsTab from "./EventsTab";
 import FollowingTab from "./FollowingTab";
-import PhotosTab from "./PhotosTab";
 
-function ProfileContent({ profile, isCurrentUser }) {
+export default function ProfileContent({ profile, isCurrentUser }) {
   const [activeTab, setActiveTab] = useState(0);
   const panes = [
     {
@@ -20,10 +20,7 @@ function ProfileContent({ profile, isCurrentUser }) {
         <PhotosTab profile={profile} isCurrentUser={isCurrentUser} />
       ),
     },
-    {
-      menuItem: "Events",
-      render: () => <EventsTab profile={profile} />,
-    },
+    { menuItem: "Events", render: () => <EventsTab profile={profile} /> },
     {
       menuItem: "Followers",
       render: () => (
@@ -45,6 +42,7 @@ function ProfileContent({ profile, isCurrentUser }) {
       ),
     },
   ];
+
   return (
     <Tab
       menu={{ fluid: true, vertical: true }}
@@ -54,5 +52,3 @@ function ProfileContent({ profile, isCurrentUser }) {
     />
   );
 }
-
-export default ProfileContent;

@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
-  Button,
-  Divider,
-  Grid,
-  Header,
-  Item,
-  Reveal,
   Segment,
+  Grid,
+  Item,
+  Header,
   Statistic,
+  Divider,
+  Reveal,
+  Button,
 } from "semantic-ui-react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import {
   followUser,
+  unfollowUser,
   getFollowingDoc,
 } from "../../../app/firestore/firestoreService";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { setFollowUser, setUnfollowUser } from "../profileActions";
 import { CLEAR_FOLLOWINGS } from "../profileConstants";
 
-function ProfileHeader({ profile, isCurrentUser }) {
+export default function ProfileHeader({ profile, isCurrentUser }) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const { followingUser } = useSelector((state) => state.profile);
@@ -42,10 +45,11 @@ function ProfileHeader({ profile, isCurrentUser }) {
     };
   }, [dispatch, profile.id, isCurrentUser]);
 
-  async function handleFollowuser() {
+  async function handleFollowUser() {
     setLoading(true);
     try {
       await followUser(profile);
+      dispatch(setFollowUser());
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -56,7 +60,7 @@ function ProfileHeader({ profile, isCurrentUser }) {
   async function handleUnfollowUser() {
     setLoading(true);
     try {
-      await handleUnfollowUser(profile);
+      await unfollowUser(profile);
       dispatch(setUnfollowUser());
     } catch (error) {
       toast.error(error.message);
@@ -96,14 +100,18 @@ function ProfileHeader({ profile, isCurrentUser }) {
               <Divider />
               <Reveal animated="move">
                 <Reveal.Content visible style={{ width: "100%" }}>
-                  <Button fluid color="teal" content="Following" />
+                  <Button
+                    fluid
+                    color="teal"
+                    content={followingUser ? "Following" : "Not following"}
+                  />
                 </Reveal.Content>
                 <Reveal.Content hidden style={{ width: "100%" }}>
                   <Button
                     onClick={
                       followingUser
                         ? () => handleUnfollowUser()
-                        : () => handleFollowuser()
+                        : () => handleFollowUser()
                     }
                     loading={loading}
                     basic
@@ -120,5 +128,3 @@ function ProfileHeader({ profile, isCurrentUser }) {
     </Segment>
   );
 }
-
-export default ProfileHeader;
