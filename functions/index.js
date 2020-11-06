@@ -4,8 +4,9 @@ admin.initializeApp(functions.config().firebase);
 
 const db = admin.firestore();
 
-exports.addFollowing = functions.firestore
-  .document("following/{userUid}/userFollowing/{profileId}")
+exports.addFollowing = functions
+  .region("asia-northeast1")
+  .firestore.document("following/{userUid}/userFollowing/{profileId}")
   .onCreate(async (snapshot, context) => {
     const following = snapshot.data();
     console.log({ following });
@@ -36,8 +37,9 @@ exports.addFollowing = functions.firestore
     }
   });
 
-exports.removeFollowing = functions.firestore
-  .document("following/{userUid}/userFollowing/{profileId}")
+exports.removeFollowing = functions
+  .region("asia-northeast1")
+  .firestore.document("following/{userUid}/userFollowing/{profileId}")
   .onDelete(async (snapshot, context) => {
     const batch = db.batch();
     batch.delete(
@@ -57,8 +59,9 @@ exports.removeFollowing = functions.firestore
     }
   });
 
-exports.eventUpdated = functions.firestore
-  .document("events/{eventId}")
+exports.eventUpdated = functions
+  .region("asia-northeast1")
+  .firestore.document("events/{eventId}")
   .onUpdate(async (snapshot, context) => {
     const before = snapshot.before.data();
     const after = snapshot.after.data();
