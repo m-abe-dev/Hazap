@@ -1,21 +1,22 @@
-import React, { useEffect } from "react";
-import { Segment, Comment, Header } from "semantic-ui-react";
-import EventDetailedChatForm from "./EventDetailedChatForm";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { Segment, Comment, Header } from 'semantic-ui-react';
+import EventDetailedChatForm from './EventDetailedChatForm';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getEventChatRef,
   firebaseObjectToArray,
-} from "../../../app/firestore/firebaseService";
-import { listenToEventChat } from "../eventActions";
-import { Link } from "react-router-dom";
-import { formatDistance } from "date-fns";
-import { CLEAR_COMMENTS } from "../eventConstants";
-import { useState } from "react";
-import { createDataTree } from "../../../app/common/util/util";
+} from '../../../app/firestore/firebaseService';
+import { listenToEventChat } from '../eventActions';
+import { Link } from 'react-router-dom';
+import { formatDistance } from 'date-fns';
+import { CLEAR_COMMENTS } from '../eventConstants';
+import { useState } from 'react';
+import { createDataTree } from '../../../app/common/util/util';
 
 export default function EventDetailedChat({ eventId }) {
   const dispatch = useDispatch();
   const { comments } = useSelector((state) => state.event);
+  const { authenticated } = useSelector((state) => state.auth);
   const [showReplyForm, setShowReplyForm] = useState({
     open: false,
     commentId: null,
@@ -26,7 +27,7 @@ export default function EventDetailedChat({ eventId }) {
   }
 
   useEffect(() => {
-    getEventChatRef(eventId).on("value", (snapshot) => {
+    getEventChatRef(eventId).on('value', (snapshot) => {
       if (!snapshot.exists()) return;
       dispatch(
         listenToEventChat(firebaseObjectToArray(snapshot.val()).reverse())
@@ -41,15 +42,16 @@ export default function EventDetailedChat({ eventId }) {
   return (
     <>
       <Segment
-        textAlign="center"
-        attached="top"
+        textAlign='center'
+        attached='top'
         inverted
-        color="teal"
-        style={{ border: "none" }}
+        color='teal'
+        style={{ border: 'none' }}
       >
-        <Header>Chat about this event</Header>
+        <Header>{authenticated ? 'Chat about this event' : 'Sign in to view and comment'}</Header>
       </Segment>
 
+      {authenticated &&
       <Segment attached>
         <EventDetailedChatForm
           eventId={eventId}
@@ -59,7 +61,7 @@ export default function EventDetailedChat({ eventId }) {
         <Comment.Group>
           {createDataTree(comments).map((comment) => (
             <Comment key={comment.id}>
-              <Comment.Avatar src={comment.photoURL || "/assets/user.png"} />
+              <Comment.Avatar src={comment.photoURL || '/assets/user.png'} />
               <Comment.Content>
                 <Comment.Author as={Link} to={`/profile/${comment.uid}`}>
                   {comment.displayName}
@@ -68,7 +70,7 @@ export default function EventDetailedChat({ eventId }) {
                   <div>{formatDistance(comment.date, new Date())}</div>
                 </Comment.Metadata>
                 <Comment.Text>
-                  {comment.text.split("\n").map((text, i) => (
+                  {comment.text.split('\n').map((text, i) => (
                     <span key={i}>
                       {text}
                       <br />
@@ -98,7 +100,7 @@ export default function EventDetailedChat({ eventId }) {
                   {comment.childNodes.reverse().map((child) => (
                     <Comment key={child.id}>
                       <Comment.Avatar
-                        src={child.photoURL || "/assets/user.png"}
+                        src={child.photoURL || '/assets/user.png'}
                       />
                       <Comment.Content>
                         <Comment.Author as={Link} to={`/profile/${child.uid}`}>
@@ -108,7 +110,7 @@ export default function EventDetailedChat({ eventId }) {
                           <div>{formatDistance(child.date, new Date())}</div>
                         </Comment.Metadata>
                         <Comment.Text>
-                          {child.text.split("\n").map((text, i) => (
+                          {child.text.split('\n').map((text, i) => (
                             <span key={i}>
                               {text}
                               <br />
@@ -143,7 +145,7 @@ export default function EventDetailedChat({ eventId }) {
             </Comment>
           ))}
         </Comment.Group>
-      </Segment>
+      </Segment>}
     </>
   );
 }
