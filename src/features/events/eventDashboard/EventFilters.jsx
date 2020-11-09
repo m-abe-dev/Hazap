@@ -1,39 +1,40 @@
-import React from "react";
-import { Header, Menu } from "semantic-ui-react";
-import Calendar from "react-calendar";
+import React from 'react';
+import { Menu, Header } from 'semantic-ui-react';
+import { Calendar } from 'react-calendar';
+import { useSelector } from 'react-redux';
 
-function EventFilters({ setPredicate, predicate, loading }) {
+export default function EventFilters({ setPredicate, predicate, loading }) {
+  const {authenticated} = useSelector(state => state.auth);
   return (
     <>
-      <Menu vertical size="large" style={{ width: "100%" }}>
-        <Header icon="filter" attached color="teal" content="Filters" />
+    {authenticated &&
+      <Menu vertical size='large' style={{ width: '100%' }}>
+        <Header icon='filter' attached color='teal' content='Filters' />
         <Menu.Item
-          content="All Events"
-          active={predicate.get("filter") === "all"}
-          onClick={() => setPredicate("filter", "all")}
+          content='All Events'
+          active={predicate.get('filter') === 'all'}
+          onClick={() => setPredicate('filter', 'all')}
           disabled={loading}
         />
         <Menu.Item
-          content="行きます"
-          active={predicate.get("filter") === "isGoing"}
-          onClick={() => setPredicate("filter", "isGoing")}
+          content="I'm going"
+          active={predicate.get('filter') === 'isGoing'}
+          onClick={() => setPredicate('filter', 'isGoing')}
           disabled={loading}
         />
         <Menu.Item
-          content="ホストです"
-          active={predicate.get("filter") === "isHost"}
-          onClick={() => setPredicate("filter", "isHost")}
+          content="I'm hosting"
+          active={predicate.get('filter') === 'isHost'}
+          onClick={() => setPredicate('filter', 'isHost')}
           disabled={loading}
         />
-      </Menu>
-      <Header icon="calendar" attached color="teal" content="Select date" />
-      <Calendar
-        onChange={(date) => setPredicate("startDate", date)}
-        value={predicate.get("startDate") || new Date()}
+      </Menu>}
+      <Header icon='calendar' attached color='teal' content='Select date' />
+      <Calendar 
+        onChange={date => setPredicate('startDate', date)}
+        value={predicate.get('startDate') || new Date()}
         tileDisabled={() => loading}
       />
     </>
   );
 }
-
-export default EventFilters;
