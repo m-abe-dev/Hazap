@@ -25,14 +25,19 @@ export default function EventsFeed() {
 
   return (
     <>
-      <Header attached color='teal' icon='newspaper' content='News feed' />
-      <Segment attached='bottom'>
+    <Header attached color="teal" icon="newspaper" content="News feed" />
+    <Segment attached="bottom">
+    {feed.length > 0 ? (
         <Feed>
-          {feed.map(post => (
-              <EventFeedItem post={post} key={post.id} />
-          ))}
+        {feed.map((post) => (
+            <EventFeedItem post={post} key={post.id} />
+        ))}
         </Feed>
-      </Segment>
-    </>
+    ) : (
+        <p>No Items</p>
+    )}
+    </Segment>
+</>
+
   );
 }
