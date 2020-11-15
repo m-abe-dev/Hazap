@@ -16,7 +16,7 @@ export default function NavBar({ setFormOpen }) {
           Hazap
         </Menu.Item>
         <Menu.Item as={NavLink} to="/events" name="Event" />
-        <Menu.Item as={NavLink} to="/sandbox" name="Sandbox" />
+        <Menu.Item as={NavLink} to="/sandbox" name="Test" />
         {authenticated && (
           <Menu.Item as={NavLink} to="/createEvent">
             <Button positive inverted content="Create Event" />
