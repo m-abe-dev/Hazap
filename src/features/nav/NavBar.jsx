@@ -12,7 +12,7 @@ export default function NavBar({ setFormOpen }) {
     <Menu inverted fixed="top">
       <Container>
         <Menu.Item as={NavLink} exact to="/" header>
-          <img src="/assets/logo.png" alt="logo" style={{ marginRight: 15 }} />
+          <img src="/assets/hazap.png" alt="logo" style={{ marginRight: 13 }} />
           Hazap
         </Menu.Item>
         <Menu.Item as={NavLink} to="/events" name="Event" />
