@@ -1,68 +1,109 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ✏️Hazap とは
 
-## Available Scripts
+Hazap とは旅行や地域のイベント通じて人と人の繋がりや出会いを作るサービスです。
+また、友達との旅行の計画も簡単にまとめることもできます。
 
-In the project directory, you can run:
+# 📺 DEMO
 
-### `npm start`
+<img width="1440" alt="スクリーンショット 2020-11-23 20 28 17" src="https://user-images.githubusercontent.com/66056064/99959122-cd3ffb00-2dcd-11eb-91cf-8ec1f2d377b9.png">
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![画面収録-2020-11-23-22 09 43](https://user-images.githubusercontent.com/66056064/99967613-76412280-2ddb-11eb-9e4e-3f801b19a852.gif)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+![画面収録-2020-11-23-22 11 27](https://user-images.githubusercontent.com/66056064/99970103-bbb31f00-2dde-11eb-84a6-2d046961c2a4.gif)
 
-### `npm test`
+# 📕 制作の背景
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+学生時代にイギリスに１年間、22 か国 81 都市に旅行し、人や異文化につながりを作れるサービスと思いました。また、コロナで軽薄となってしまった人とのつながりや旅行の楽しみをアフターコロナで促進したいを思っています。
 
-### `npm run build`
+## ペルソナ
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 世界中の 10 代から 30 代前半の人たち
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# 📘 工夫した点
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **「直感的な分かりやすさ・シンプルさ」** を重視して、一つ一つの機能やデザインに細部までこだわりました。
+- 赤色や黄緑、黄色など明るい色を基調とし、アイコンや画像を多く取り入れることで　**「新しい人とのつながりや旅行の楽しみ」** を表現してみました。
+- スケジュール管理や誰と参加したいなど、色々なアプリやサービスで確認をして、行き来する必要がなく、なるべく　**「ひとつのページで完結するようなユーザビリティ」** を意識して、デザインしました。
 
-### `npm run eject`
+# 🖥 機能一覧
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## ユーザー機能
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- ユーザー登録・編集・削除
+- SNS ログイン・ユーザー登録(Facebook)
+- ゲストログイン
+- プロフィール画像の編集(react-dropzone と react-cropper)
+- マイプロフィールにて作成したイベントの一覧を表示
+- マイプロフィールにて自分の詳細を記入できる
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 投稿機能
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- イベントのタイトル
+- イベントのカテゴリー
+- イベントの詳細
+- イベントの場所(react-places-autocomplete)
+- イベントの日時(react-datepicker)
 
-## Learn More
+## チャット機能
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- ユーザー同士のメッセージ送信(Realtime Datebase)
+- トーク履歴の表示
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 詳細ページ表示機能
 
-### Code Splitting
+- 地図表示(google-map-react)
+- 編集機能
+- イベント申し込み・キャンセル
+- イベント参加ユーザーの表示
+- チャット
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## フォロー機能
 
-### Analyzing the Bundle Size
+- ユーザーのフォロー・フォロー解除
+- フォロー中のユーザーとフォロワーの一覧表示(マイプロフィールにて)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## 通知機能
 
-### Making a Progressive Web App
+- 以下のタイミングでユーザーに通知を送信
+  - フォローしたユーザーがログインした時
+  - フォローしたユーザーがイベントをキャンセルした時
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## イベント一覧機能
 
-### Advanced Configuration
+- ホストユーザー、場所、参加者、詳細
+- 詳細ページ閲覧
+- 無限スクロール(react-infinite-scroller)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## フィルター機能
 
-### Deployment
+- すべてのイベント
+- 自分が参加するイベント
+- 自分がホストするイベント
+- イベント日時(react-calendar)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+## その他
 
-### `npm run build` fails to minify
+- レスポンシブ対応
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+# 📗 使用ライブラリと技術
+
+- google-map-react: 2.1.8
+- history: 4.10.1
+- react: 16.14.0
+- react-calendar: 3.1.0
+- react-cropper: 1.3.0
+- react-datepicker: 3.3.0
+- react-dom: 16.14.0
+- react-dropzone: 11.2.2
+- react-infinite-scroller: 1.2.4
+- react-places-autocomplete: 7.3.0
+- react-redux: 7.2.1
+- react-router-dom: 5.2.0
+- react-scripts: 3.4.3
+- react-toastify: 6.0.9
+- redux: 4.0.5
+- redux-thunk: 2.3.0
+- semantic-ui-css: 2.4.1
+- semantic-ui-react: 2.0.0
+- yup: 0.29.3
+- Firebase(Authentication, Cloud Firestore, Realtime Datebase, Storage, Hosting, Cloud Functions)
