@@ -3,6 +3,8 @@
 Hazap とは旅行や地域のイベント通じて人と人の繋がりや出会いを作るサービスです。
 また、友達との旅行の計画も簡単にまとめることもできます。
 
+https://revents-da415.firebaseapp.com/
+
 # 📺 DEMO
 
 <img width="1440" alt="スクリーンショット 2020-11-23 20 28 17" src="https://user-images.githubusercontent.com/66056064/99959122-cd3ffb00-2dcd-11eb-91cf-8ec1f2d377b9.png">
